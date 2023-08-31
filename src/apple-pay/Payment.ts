@@ -8,6 +8,14 @@ import { ApplePayEnvironment } from '../base/config/ApplePayEnvironment';
 
 export class Payment implements IPayment {
 
+    /**
+     * Validates the payment session.
+     * 
+     * API Reference - https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/providing_merchant_validation
+     * 
+     * @param data 
+     * @returns 
+     */
     async validateSession(data: any): Promise<any> {
         const { validationUrl } = data
         try {
