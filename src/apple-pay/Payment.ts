@@ -5,6 +5,7 @@ import https from 'https'
 import axios from '../base/api';
 import { IPayment } from "../base/contracts/IPayment";
 import { ApplePayEnvironment } from '../base/config/ApplePayEnvironment';
+import { RequestMethod } from '../constants/enums/RequestMethod';
 
 export class Payment implements IPayment {
 
@@ -20,19 +21,26 @@ export class Payment implements IPayment {
         const { validationUrl } = data
         try {
             const httpsAgent = new https.Agent({
-                rejectUnauthorized: false,
+                //rejectUnauthorized: false,
                 cert: ApplePayEnvironment.getPEMCert(),
                 key: ApplePayEnvironment.getKeyCert(),
             })
-
-            const { data: validateSessionResult } = await axios.post(validationUrl, {
-                merchantIdentifier: ApplePayEnvironment.getMerchantId(),
-                domainName: ApplePayEnvironment.getDomainName(),
-                displayName: ApplePayEnvironment.getDisplayName(),
-            }, {
-                httpsAgent
-            })
-
+            const config = {
+                url: validationUrl,
+                method: RequestMethod.POST,
+                data: {
+                    merchantIdentifier: ApplePayEnvironment.getMerchantId(),
+                    displayName: ApplePayEnvironment.getDisplayName(),
+                    initiative: "web",
+                    initiativeContext: ApplePayEnvironment.getDomainName(),
+                },
+                httpsAgent: httpsAgent,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            }
+            const { data: validateSessionResult } = await axios(config)
             return validateSessionResult
         } catch (error) {
             return { hasError: true, error: error };

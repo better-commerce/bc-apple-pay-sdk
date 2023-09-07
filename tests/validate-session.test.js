@@ -1,8 +1,21 @@
+const fs = require('fs')
+const path = require('path')
 const { ApplePayEnvironment, Payment } = require("../dist");
 
-ApplePayEnvironment.init("merchant.com.commerce.ffx", "ffx.bettercommerce.tech", "FFX", "", "", false)
+const pemCert = fs.readFileSync(
+    path.join(__dirname, '/certificates/ApplePayMerchant.pem')
+)
+const keyCert = fs.readFileSync(
+    path.join(__dirname, '/certificates/ApplePayMerchant.key')
+)
+
+ApplePayEnvironment.init("merchant.com.commerce.ffx", "ffx.bettercommerce.tech", "FFX", pemCert, keyCert, false)
 
 const data = {
-    validationUrl: "",
+    validationUrl: "https://apple-pay-gateway-cert.apple.com/paymentservices/startSession",
 }
-new Payment().validateSession(data)
+new Payment().validateSession(data).then(result => {
+    console.log(JSON.stringify(result))
+}).then(error => {
+    console.log(error)
+})

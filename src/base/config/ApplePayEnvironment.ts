@@ -36,8 +36,8 @@ export class ApplePayEnvironment {
      * @property {string}
      */
     static displayName: string;
-    static pemCert: string;
-    static keyCert: string;
+    static pemCert: Buffer;
+    static keyCert: Buffer;
 
     static environment: string;
 
@@ -47,7 +47,7 @@ export class ApplePayEnvironment {
      */
     static baseUrl: string;
 
-    static init(merchantId: string, domainName: string, displayName: string, pemCert: string, keyCert: string, useSandBox = true) {
+    static init(merchantId: string, domainName: string, displayName: string, pemCert: Buffer, keyCert: Buffer, useSandBox = true) {
         ApplePayEnvironment.merchantId = merchantId;
         ApplePayEnvironment.domainName = domainName;
         ApplePayEnvironment.displayName = displayName;
@@ -88,11 +88,11 @@ export class ApplePayEnvironment {
         return ApplePayEnvironment.displayName;
     }
 
-    static getPEMCert(): string {
+    static getPEMCert(): Buffer {
         return ApplePayEnvironment.pemCert;
     }
 
-    static getKeyCert(): string {
+    static getKeyCert(): Buffer {
         return ApplePayEnvironment.keyCert;
     }
 
