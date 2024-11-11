@@ -7,6 +7,11 @@ import { IPayment } from "../base/contracts/IPayment";
 import { ApplePayEnvironment } from '../base/config/ApplePayEnvironment';
 import { RequestMethod } from '../constants/enums/RequestMethod';
 
+/**
+ * Class {Payment} interacts with Apple Pay API.
+ * 
+ * @implements {IPayment}
+ */
 export class Payment implements IPayment {
 
     /**

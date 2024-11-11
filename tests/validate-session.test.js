@@ -9,13 +9,15 @@ const keyCert = fs.readFileSync(
     path.join(__dirname, '/certificates/ApplePayMerchant.key')
 )
 
-ApplePayEnvironment.init("merchant.com.commerce.ffx", "ffx.bettercommerce.tech", "FFX", pemCert, keyCert, false)
+ApplePayEnvironment.init("merchant.com.ffx", "ffx.co.uk", "merchant.com.ffx", pemCert, keyCert, false)
 
 const data = {
     validationUrl: "https://apple-pay-gateway-cert.apple.com/paymentservices/startSession",
 }
 new Payment().validateSession(data).then(result => {
     console.log(JSON.stringify(result))
-}).then(error => {
-    console.log(error)
+}).then((error) => {
+    if (error) {
+        console.log(error)
+    }
 })

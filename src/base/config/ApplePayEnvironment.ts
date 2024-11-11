@@ -1,7 +1,8 @@
 import { Endpoints } from "../../constants/Endpoints";
 
 /**
- * Class {ApplePayEnvironment}
+ * Class {ApplePayEnvironment} is used to initialize the ApplePay environment.
+ * The class should be initialized before using any other class in the SDK.
  */
 export class ApplePayEnvironment {
 
@@ -47,6 +48,16 @@ export class ApplePayEnvironment {
      */
     static baseUrl: string;
 
+    /**
+     * Initializes the ApplePayEnvironment with the given parameters.
+     * @param {string} merchantId - The apple pay merchant id.
+     * @param {string} domainName - The domain name of the merchant.
+     * @param {string} displayName - The display name of the merchant.
+     * @param {Buffer} pemCert - The pem formatted certificate.
+     * @param {Buffer} keyCert - The pem formatted key.
+     * @param {boolean} [useSandBox=true] - If true, uses sandbox, otherwise uses production.
+     * @returns {ApplePayEnvironment} The ApplePayEnvironment instance.
+     */
     static init(merchantId: string, domainName: string, displayName: string, pemCert: Buffer, keyCert: Buffer, useSandBox = true) {
         ApplePayEnvironment.merchantId = merchantId;
         ApplePayEnvironment.domainName = domainName;
@@ -65,44 +76,63 @@ export class ApplePayEnvironment {
     }
 
     /**
-     * Returns the merchant Id.
-     * @return {string}
+     * Retrieves the merchant ID for the Apple Pay environment.
+     * 
+     * @returns {string} The merchant ID.
      */
     static getMerchantId(): string {
         return ApplePayEnvironment.merchantId;
     }
 
     /**
-     * Returns the domain name.
-     * @return {string}
+     * Retrieves the domain name of the merchant for the Apple Pay environment.
+     * 
+     * @returns {string} The domain name of the merchant.
      */
     static getDomainName(): string {
         return ApplePayEnvironment.domainName;
     }
 
     /**
-     * Returns the display name.
-     * @return {string}
+     * Retrieves the display name of the merchant for the Apple Pay environment.
+     * 
+     * @returns {string} The display name of the merchant.
      */
     static getDisplayName(): string {
         return ApplePayEnvironment.displayName;
     }
 
+    /**
+     * Retrieves the PEM formatted certificate for the Apple Pay environment.
+     * 
+     * @returns {Buffer} The PEM formatted certificate.
+     */
     static getPEMCert(): Buffer {
         return ApplePayEnvironment.pemCert;
     }
 
+    /**
+     * Retrieves the PEM formatted key certificate for the Apple Pay environment.
+     * 
+     * @returns {Buffer} The key certificate.
+     */
     static getKeyCert(): Buffer {
         return ApplePayEnvironment.keyCert;
     }
 
+    /**
+     * Retrieves the Apple Pay environment name, which is either "sandbox" or "production", depending on whether the sandbox or production environment is used.
+     * 
+     * @returns {string} The environment name.
+     */
     static getEnvironment(): string {
         return ApplePayEnvironment.environment;
     }
 
     /**
-     * Returns the base url.
-     * @return {string}
+     * Retrieves the base URL for the Apple Pay environment.
+     * 
+     * @returns {string} The base URL, which varies based on whether the sandbox or production environment is used.
      */
     static getBaseUrl(): string {
         return ApplePayEnvironment.baseUrl;
